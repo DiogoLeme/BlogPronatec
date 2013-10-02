@@ -1,6 +1,6 @@
 package com.senai.model.bean;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class Post {
 
@@ -10,7 +10,7 @@ public class Post {
 	private String resumo;
 	private Integer status;
 	private String autor;
-	private Calendar data;
+	private Date data;
 	
 	public Integer getId() {
 		return id;
@@ -48,10 +48,10 @@ public class Post {
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
-	public Calendar getData() {
+	public Date getData() {
 		return data;
 	}
-	public void setData(Calendar data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 }

@@ -1,36 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
  <jsp:include page="cabecalho.jsp" />
 
-      <div class="row marketing">
-        <div class="col-6">
-          <h2>Últimos artigos</h2>
-          <h4><a href="#">4 dicas para poupar a memória do seu Android</a></h4>
-          <h5>27.12.1987 - Aline e Gabriel</h5>
-          <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra es , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mas faiz elementum girarzis, nisi eros vermeio, in elementis mas pra quem es amistosis quis leo. Manduma pindureta quium dia nois paga. 
-          <a href="#">Leia mais</a>
-          </p>
-
-          <h4><a href="#">O que muda no mercado dos smartphones aós o lançaamento dos iPhones 5S e 5C</a></h4>
-          <h5>27.12.1987 - Aline e Gabriel</h5>
-		  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra es , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mas faiz elementum girarzis, nisi eros vermeio, in elementis mas pra quem es amistosis quis leo. Manduma pindureta quium dia nois paga.
-          
-          <a href="#">Leia mais</a>
-          </p>
-
-          <h4><a href="#">Navegador para Android, Mozilla Firefox, recebe atualização</a></h4>
-          <h5>27.12.1987 - Aline e Gabriel</h5>
-          <p id="last">Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra es , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mas faiz elementum girarzis, nisi eros vermeio, in elementis mas pra quem es amistosis quis leo. Manduma pindureta quium dia nois paga. 
-          <a href="#">Leia mais</a>
-          </p>
-
-          <h4><a href="#">Novos lançamentos da Samsung: Galaxy Note 3 e Galaxy Gear</a></h4>
-          <h5>27.12.1987 - Aline e Gabriel</h5>
-          <p id="last">Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra es , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mas faiz elementum girarzis, nisi eros vermeio, in elementis mas pra quem es amistosis quis leo. Manduma pindureta quium dia nois paga. 
-          <a href="#">Leia mais</a>
-          </p>
-
-        </div>
-      </div>
+	<div class="row marketing">
+		<div class="col-6">
+			<h2>Últimos artigos</h2>
+			
+			<c:forEach items="${lista}" var="post">
+			<h4>
+				<a href="post?acao=exibir&id=${post.id}">${post.titulo}</a>
+			</h4>
+			<h5>${post.data} - ${post.autor}</h5>
+			<p>
+				${post.resumo} <a href="post?acao=exibir&id=${post.id}">Leia mais</a>
+			</p>
+			</c:forEach>
+			
+		</div>
+	</div>
 
 <jsp:include page="rodape.jsp" />

@@ -1,0 +1,10 @@
+$(document).ready(function(){
+	$("#publicar").click(function(){
+		$("#acao").val("publicar");
+		$("#formPost").submit();
+	});
+	$("#salvar").click(function(){
+		$("#acao").val("salvar");
+		$("#formPost").submit();
+	});
+});
