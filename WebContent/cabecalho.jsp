@@ -10,11 +10,9 @@
     <meta name="author" content="Bruno Eustáquio">
     <title>Blog Pronatec</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <link href="css/estilo.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     
     <script type="text/javascript" src="js/jquery-2.0.3.js" /></script>
     <script type="text/javascript" src="js/script.js" /></script>

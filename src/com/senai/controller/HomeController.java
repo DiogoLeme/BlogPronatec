@@ -33,7 +33,7 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PostDAO postDAO = new PostDAO();
-		List<Post> lista = postDAO.getLista();
+		List<Post> lista = postDAO.getLista(Boolean.TRUE);
 
 		request.setAttribute("lista", lista);
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");

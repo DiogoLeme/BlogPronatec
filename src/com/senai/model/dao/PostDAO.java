@@ -1,5 +1,6 @@
 package com.senai.model.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,10 +47,17 @@ public class PostDAO {
 		}
 	}
 	
-	public List<Post> getLista() {
+	public List<Post> getLista(Boolean showDrafts) {
 		try {
 			List<Post> posts = new ArrayList<Post>();
-			PreparedStatement stmt = this.connection .prepareStatement("select id, titulo, resumo, autor, data from post where status = 1 order by data desc");
+			PreparedStatement stmt = this.connection .prepareStatement("select * from post where status = 1 or status = ? order by data desc");
+
+			if(showDrafts){
+				stmt.setString(1, "0");
+			} else {
+				stmt.setString(1, "1");
+			}
+			
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -59,12 +67,13 @@ public class PostDAO {
 				post.setTitulo(rs.getString("titulo"));
 				post.setResumo(rs.getString("resumo"));
 				post.setAutor(rs.getString("autor"));
+				post.setStatus(rs.getInt("status"));
 
 				// montando a data através do Calendar
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getTimestamp("data"));
 				post.setData(data.getTime());
-
+				
 				// adicionando o objeto à lista
 				posts.add(post);
 			}
@@ -80,15 +89,17 @@ public class PostDAO {
 	public Post getPost(Integer id) {
 		try {
 			Post post = new Post();
-			PreparedStatement stmt = this.connection .prepareStatement("select titulo, autor, data, texto from post where id = ?");
+			PreparedStatement stmt = this.connection .prepareStatement("select * from post where id = ?");
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				// criando o objeto Contato
 				post = new Post();
+				post.setId(rs.getInt("id"));
 				post.setTitulo(rs.getString("titulo"));
 				post.setTexto(rs.getString("texto"));
+				post.setResumo(rs.getString("resumo"));
 				post.setAutor(rs.getString("autor"));
 
 				// montando a data através do Calendar
@@ -100,6 +111,38 @@ public class PostDAO {
 			rs.close();
 			stmt.close();
 			return post;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void deletar(Integer id) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from post where id=?");
+			stmt.setLong(1, id);
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	 
+	 
+	public void atualiza(Post post) {
+		String sql = "update post set titulo = ?, resumo = ?, texto = ?, autor = ?, status = ?, data = ? where id = ?";
+	
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, post.getTitulo());
+			stmt.setString(2, post.getResumo());
+			stmt.setString(3, post.getTexto());
+			stmt.setString(4, post.getAutor());
+			stmt.setInt(5, post.getStatus());
+			stmt.setTimestamp(6, new Timestamp(post.getData().getTime()));
+			stmt.setInt(7, post.getId());
+			
+			stmt.execute();
+			stmt.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
