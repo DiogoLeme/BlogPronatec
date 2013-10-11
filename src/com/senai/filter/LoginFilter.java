@@ -10,16 +10,21 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+
+import com.senai.model.bean.Usuario;
 
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter(urlPatterns = { "/home" })
+@WebFilter(urlPatterns = { "/post" })
 public class LoginFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		String usuario = request.getParameter("usuario");
-		if ("1".equals(usuario)) {
+		HttpServletRequest httpServletRequest = (HttpServletRequest)request;
+		Usuario usuario = (Usuario)httpServletRequest.getSession().getAttribute("user");
+		
+		if (usuario == null) {
 			request.setAttribute("mensagem", "Você deve fazer login para acessar essa página.");
 			RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
 			rd.forward(request, response);

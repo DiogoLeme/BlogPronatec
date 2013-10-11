@@ -30,14 +30,24 @@
 	<c:if test="${pageContext.request.servletPath eq '/cadastrar.jsp'}"><c:set var="cad" value="active" /></c:if>
 	<c:if test="${pageContext.request.servletPath eq '/sobre.jsp'}"><c:set var="sob" value="active" /></c:if>
 	<c:if test="${pageContext.request.servletPath eq '/contato.jsp'}"><c:set var="con" value="active" /></c:if>
+	<c:if test="${pageContext.request.servletPath eq '/login.jsp'}"><c:set var="log" value="active" /></c:if>
 
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="${ind}"><a href="home">Home</a></li>
-          <li class="${cad}"><a href="cadastrar.jsp">Novo artigo</a></li>
+          <c:if test="${not empty sessionScope.user}">
+          <li class="${cad}"><a href="post">Novo artigo</a></li>
+          </c:if>
           <li class="${sob}"><a href="sobre.jsp">Sobre</a></li>
           <li class="${con}"><a href="contato.jsp">Contato</a></li>
+          <c:if test="${empty sessionScope.user}">
+          	<li class="${log}"><a href="login.jsp">Entrar</a></li>
+          </c:if>
+          <c:if test="${not empty sessionScope.user}">
+          	<li><a href="login?sair=1">Sair</a></li>
+          </c:if>
+          
         </ul>
         <h3 class="text-muted">Blog Pronatec</h3>
       </div>

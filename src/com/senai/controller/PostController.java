@@ -35,14 +35,12 @@ public class PostController extends HttpServlet {
 		String acao = request.getParameter("acao");
 		if ("salvar".equals(acao) || "publicar".equals(acao)) {
 			salvar(request, response);
-		} else if ("exibir".equals(acao)) {
-			exibir(request, response);
 		} else if ("editar".equals(acao)) {
 			editar(request, response);
 		} else if ("deletar".equals(acao)) {
 			deletar(request, response);
-		} else if ("editar".equals(acao)) {
-			editar(request, response);
+		}else {
+			request.getRequestDispatcher("/cadastrar.jsp").forward(request, response);
 		}
 	}
 
@@ -65,17 +63,6 @@ public class PostController extends HttpServlet {
 
 		request.setAttribute("post", post);
 		RequestDispatcher rd = request.getRequestDispatcher("/cadastrar.jsp");
-		rd.forward(request, response);
-	}
-
-	private void exibir(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
-		String stringId = request.getParameter("id");
-		Integer id = Integer.parseInt(stringId);
-		PostDAO postDAO = new PostDAO();
-		Post post = postDAO.getPost(id);
-
-		request.setAttribute("post", post);
-		RequestDispatcher rd = request.getRequestDispatcher("/post.jsp");
 		rd.forward(request, response);
 	}
 
