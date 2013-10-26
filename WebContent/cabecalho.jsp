@@ -24,7 +24,6 @@
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
   </head>
-  
    <body> 
 	<c:if test="${pageContext.request.servletPath eq '/index.jsp'}"><c:set var="ind" value="active" /></c:if>
 	<c:if test="${pageContext.request.servletPath eq '/cadastrar.jsp'}"><c:set var="cad" value="active" /></c:if>
@@ -45,9 +44,8 @@
           	<li class="${log}"><a href="login.jsp">Entrar</a></li>
           </c:if>
           <c:if test="${not empty sessionScope.user}">
-          	<li><a href="login?sair=1">Sair</a></li>
+          	<li><a href="login?sair">Sair</a></li>
           </c:if>
-          
         </ul>
         <h3 class="text-muted">Blog Pronatec</h3>
       </div>
